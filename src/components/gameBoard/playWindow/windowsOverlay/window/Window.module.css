@@ -1,0 +1,22 @@
+.container {
+  position: relative;
+
+  height: 62%;
+  width: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.windowBackDrop {
+  height: 100%;
+  margin-left: 15%;
+  width: 70%;
+  background-color: yellow;
+  position: absolute;
+}
+
+.windowImg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,12 @@
+.lightOn {
+  background-color: yellow;
+}
+.gameSquare {
+  width: 100px;
+  height: 100px;
+  border: 2px solid;
+  border-color:darkgray;
+  cursor: pointer;
+  user-select: none;
+  background-color: navy;
+}

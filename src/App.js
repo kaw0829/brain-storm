@@ -1,10 +1,13 @@
+import Routes from './ui/routes/Routes';
 import './App.css';
-import Card from './ui/card/Card.js';
+// import { updateHiScore } from './components/scoreBoard/scoreBoardSlice';
+// import { useDispatch } from 'react-redux';
 
 function App() {
+  require('dotenv').config();
   return (
-    <div className='App'>
-      <Card>Hello There</Card>
+    <div id='App' className='App'>
+      <Routes />
     </div>
   );
 }

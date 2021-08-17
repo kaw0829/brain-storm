@@ -1,0 +1,33 @@
+.mrRobo {
+  width: 10vw;
+}
+
+.backGround {
+  height: 100%;
+  width: 100%;
+  background-color: lightcyan;
+  position: fixed;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 90vh;
+  justify-content: space-between;
+}
+.splashButton {
+  width: 25vw;
+  height: 10vh;
+  margin: 1vh;
+  font-size: 4vh;
+  color: ivory;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+.button {
+  margin-left: 9vw;
+  margin-right: 9vw;
+}

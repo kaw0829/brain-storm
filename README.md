@@ -1,5 +1,5 @@
-# Getting Started with Create React App
-
+# Brain-Storm
+An educational game created with React.  Redux ToolKit was used to implement state management.  Firebase was used to store user information.
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
