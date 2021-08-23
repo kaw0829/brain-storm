@@ -32,26 +32,26 @@ const Instructions = () => {
   return (
     <div className={classes.backGround}>
       <div className={classes.container}>
-        <section class='nes-container is-dark'>
-          <section class='message-list'></section>
-          <section class='message -right'>
-            <div class='nes-balloon from-right is-dark'>
+        <section className='nes-container is-dark'>
+          <section className='message-list'></section>
+          <section className='message -right'>
+            <div className='nes-balloon from-right is-dark'>
               <p>{displayText[0]}</p>
             </div>
             <img src={MrRobo} className={classes.mrRobo} alt='robot' />
-            <section class='message -left'>
+            <section className='message -left'>
               <img src={MrRobo} className={classes.mrRobo} alt='robot' />
-              <div class='nes-balloon from-left is-dark'>
+              <div className='nes-balloon from-left is-dark'>
                 <p>{displayText[1]}</p>
               </div>
-              <section class='message -right'>
-                <div class='nes-balloon from-right is-dark'>
+              <section className='message -right'>
+                <div className='nes-balloon from-right is-dark'>
                   <p>{displayText[2]}</p>
                 </div>
                 <img src={MrRobo} className={classes.mrRobo} alt='robot' />
-                <section class='message -left'>
+                <section className='message -left'>
                   <img src={MrRobo} className={classes.mrRobo} alt='robot' />
-                  <div class='nes-balloon from-left is-dark'>
+                  <div className='nes-balloon from-left is-dark'>
                     <p>{displayText[3]}</p>
                   </div>
                 </section>

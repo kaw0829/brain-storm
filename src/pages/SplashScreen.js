@@ -50,10 +50,9 @@ const EnterUserName = ({ handlePlay, userScores }) => {
     //const postsForUser = useSelector((state) => selectPostsByUser(state, userId))
     dispatch(setInitalVals(currentUser));
 
-    //TODO: connect to db check to see if initials are in system
-    // set hiscore for all players and current player and user name
+    //TODO: 
     // set up gameplay slice? for those props, would allow for multiplayer by adding real time gamedata
-    // force route to GameScreen
+    
   };
   return (
     <React.Fragment>
