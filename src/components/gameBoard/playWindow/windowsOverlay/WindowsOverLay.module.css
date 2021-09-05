@@ -11,7 +11,7 @@
 }
 
 .ledge {
-  background-image: url('ledge.bmp');
+  /* background-image: url('ledge.bmp'); */
   background-color:darkgray;
   height: 6px;
   width: 100%;

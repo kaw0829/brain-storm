@@ -6,10 +6,10 @@ import questionArray from '../../../../utilites/helpers';
 import { shuffleArray } from '../../../../utilites/helpers';
 import {
   setDisplayQuestion,
+  selectHasCoffee,
   selectDisplayQuestion,
-  setOneWindowInArray,
   setMultiWindowInArray,
-  flipMultiWindowInArray,
+  setNineWindowsInArray,
 } from '../../../../app/playerScoreSlice';
 
 //generates an array of questions and answers, index value will match question to answer.
@@ -19,6 +19,7 @@ let answersArray = questionArray.answers;
 
 const Questions = () => {
   const dispatch = useDispatch();
+  const coffee = useSelector(selectHasCoffee);
   /**
    *  helper funcion for selecting random index of passed array
    *
@@ -73,7 +74,11 @@ const Questions = () => {
   const handleChooseAnswer = (e) => {
     if (parseInt(e.target.value) === correct) {
       setMessage('Correct');
-      dispatch(setMultiWindowInArray(true));
+      if (coffee) {
+        dispatch(setNineWindowsInArray(true));
+      } else {
+        dispatch(setMultiWindowInArray(true));
+      }
 
       setTimeout(() => {
         dispatch(setDisplayQuestion(false));
@@ -92,16 +97,32 @@ const Questions = () => {
       <div className={classes.questions}>
         <div>{question}</div>
         <div className={classes.answer}>
-          <button className={classes.answerText} value={answers[0]} onClick={handleChooseAnswer}>
+          <button
+            className={`nes-btn ${classes.answerText}`}
+            value={answers[0]}
+            onClick={handleChooseAnswer}
+          >
             {answers[0]}
           </button>
-          <button className={classes.answerText} value={answers[1]} onClick={handleChooseAnswer}>
+          <button
+            className={`nes-btn ${classes.answerText}`}
+            value={answers[1]}
+            onClick={handleChooseAnswer}
+          >
             {answers[1]}
           </button>
-          <button className={classes.answerText} value={answers[2]} onClick={handleChooseAnswer}>
+          <button
+            className={`nes-btn ${classes.answerText}`}
+            value={answers[2]}
+            onClick={handleChooseAnswer}
+          >
             {answers[2]}
           </button>
-          <button className={classes.answerText} value={answers[3]} onClick={handleChooseAnswer}>
+          <button
+            className={`nes-btn ${classes.answerText}`}
+            value={answers[3]}
+            onClick={handleChooseAnswer}
+          >
             {answers[3]}
           </button>
           <div>{message}</div>

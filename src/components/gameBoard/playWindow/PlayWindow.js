@@ -1,94 +1,69 @@
-import { useState, useEffect } from 'react';
-
 import classes from './PlayWindow.module.css';
 import WindowsOverLay from './windowsOverlay/WindowsOverLay';
 import Questions from './questions/Questions';
-import cloudy from '../../../resources/cloudy.gif';
+import { useEffect } from 'react';
+import levels from '../../../utilites/levels';
 import Buffer from './buffer/Buffer';
-
-// Hooks
-// function useRecordKeyPress() {
-//   const [keyPressed, setKeyPressed] = useState('');
-
-//   function downHandler({ key }) {
-//     console.log('key1', key);
-//     if (key === 'w') {
-//       console.log('key2', key);
-//       setKeyPressed(key);
-//     } else {
-//       key = '';
-//     }
-//   }
-//   const upHandler = ({ key }) => {
-//     if (key === 'w') {
-//       setKeyPressed('');
-//       console.log('keyup', keyPressed);
-//     }
-//   };
-
-//   useEffect(() => {
-//     window.addEventListener('keydown', downHandler);
-//     window.addEventListener('keyup', upHandler);
-//     return () => {
-//       window.removeEventListener('keydown', downHandler);
-//       window.removeEventListener('keyup', upHandler);
-//     };
-//   }, []);
-//   return keyPressed;
-// }
-
-// function useKeyPress(targetKey) {
-//   // State for keeping track of whether key is pressed
-//   const [keyPressed, setKeyPressed] = useState(false);
-//   // If pressed key is our target key then set to true
-//   function downHandler({ key }) {
-//     if (key === targetKey) {
-//       setKeyPressed(true);
-//     }
-//   }
-//   // If released key is our target key then set to false
-//   const upHandler = ({ key }) => {
-//     if (key === targetKey) {
-//       setKeyPressed(false);
-//     }
-//   };
-//   // Add event listeners
-//   useEffect(() => {
-//     window.addEventListener('keydown', downHandler);
-//     window.addEventListener('keyup', upHandler);
-//     // Remove event listeners on cleanup
-//     return () => {
-//       window.removeEventListener('keydown', downHandler);
-//       window.removeEventListener('keyup', upHandler);
-//     };
-//   }, []); // Empty array ensures that effect is only run on mount and unmount
-//   return keyPressed;
-// }
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectPlayerLevel,
+  selectPlayerPosition,
+  setPlayerPosition,
+  setDisplayQuestion,
+  setWindowClicked,
+} from '../../../app/playerScoreSlice';
+import Timer from './timer/Timer';
 
 const PlayWindow = () => {
-  // const cloudCharacter = <img src={cloudy} className={classes.cloudy} alt='cloudy' />;
-  // const [enemyStartPos, setEnemyPos] = useState();
+  const dispatch = useDispatch();
+  const id = useSelector(selectPlayerPosition);
 
-  // useEffect(() => {
-  //   const generateEnemySprite = () => {
-  //     const startRow = Math.floor(Math.random() * 10);
-  //     setEnemyPos(startRow);
-  //     console.log(startRow);
-  //   };
-  //   const interval = setInterval(() => {
-  //     generateEnemySprite();
-  //   }, 10000);
-  //   return () => clearInterval(interval);
-  // }, []);
+  useEffect(() => {
+    const downHandler = (e) => {
+      if (e.key === 's') {
+        if (id + 12 <= 58) {
+          dispatch(setPlayerPosition(id + 12));
+        }
+      } else if (e.key === 'w') {
+        if (id - 12 >= 0) {
+          dispatch(setPlayerPosition(id - 12));
+        }
+      } else if (e.key === 'a') {
+        const endRows = [11, 23, 35, 47];
+        if (!endRows.includes(id - 1) && id - 1 >= 0) {
+          dispatch(setPlayerPosition(id - 1));
+        }
+      } else if (e.key === 'd') {
+        const endRows = [11, 23, 35, 47];
+        if (!endRows.includes(id + 1) && id + 1 <= 58) {
+          dispatch(setPlayerPosition(id + 1));
+        }
+      } else if (e.key === ' ') {
+        if (id % 2 === 1) {
+          dispatch(setDisplayQuestion(true));
+          dispatch(setWindowClicked(id));
+        }
+      }
+    };
+    document.body.addEventListener('keydown', downHandler);
+    return () => document.body.removeEventListener('keydown', downHandler);
+  }, [dispatch, id]);
+
+  const level = useSelector(selectPlayerLevel);
+  const levelObject = levels[level];
+  const background = levelObject.assets.bricks;
 
   return (
     <div className={classes.playWindow}>
-      <Buffer displayCharacter={false} char={cloudy} />
-      <div className={classes.building}>
-        <WindowsOverLay />
+      <Buffer displayCharacter={false} levelObj={levelObject} />
+      <div className={classes.building} style={{ backgroundImage: `url(${background})` }}>
+        <WindowsOverLay levelObj={levelObject} />
       </div>
-      <Buffer displayCharacter={true} char={cloudy} />
-      <Questions />
+      <Buffer displayCharacter={true} levelObj={levelObject} />
+      <div className={classes.rightContainer}>
+        <Timer />
+        <Questions />
+      </div>
     </div>
   );
 };

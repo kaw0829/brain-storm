@@ -44,6 +44,7 @@ const EnterUserName = ({ handlePlay, userScores }) => {
   };
   const handleStart = () => {
     let currentUser = userScores.find((player) => player.initials === user);
+    
     currentUser = currentUser ? currentUser : { initials: user, hiScore: 0, id: nanoid() };
     console.log('current user', currentUser);
     currentUser = { ...currentUser, allTimeHiScore: allTimeHiScore };

@@ -1,11 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import classes from './Buffer.module.css';
-import { setEnemyPosition, setAdvanceEnemies } from '../../../../app/playerScoreSlice';
+import {
+  setItemPosition,
+  setEnemyPosition,
+  setAdvanceEnemies,
+} from '../../../../app/playerScoreSlice';
+import { div } from 'prelude-ls';
 
-const Buffer = ({ displayCharacter, char }) => {
-  const cloudCharacter = <img src={char} className={classes.cloudy} alt='cloudy' />;
-  const [enemyStartPos, setEnemyPos] = useState();
+const Buffer = ({ displayCharacter, levelObj }) => {
+  const cloudCharacter = (
+    <img src={levelObj.assets.cloudy} className={classes.cloudy} alt='cloudy' />
+  );
+  const [enemyStartPos, setEnemyPos] = useState(61);
   const dispatch = useDispatch();
   useEffect(() => {
     const generateEnemySprite = () => {
@@ -13,18 +20,30 @@ const Buffer = ({ displayCharacter, char }) => {
       if (enemyStartPos > 58 && enemyStartPos < 64) {
         dispatch(setEnemyPosition(enemyStartPos));
       }
-      const startRow = Math.floor(Math.random() * 20 + 58);
+      const startRow = Math.floor(Math.random() * levelObj.difficulty.oddsOfEnemy + 58);
       setEnemyPos(startRow);
-      console.log(startRow);
     };
-
+    const generateItem = () => {
+      const rand = Math.floor((Math.random() * 59 * 30) / levelObj.difficulty.itemOdds);
+      if (rand % 2 === 1 && rand <= 58) {
+        dispatch(setItemPosition(rand));
+      }
+    };
     if (displayCharacter === true) {
       const interval = setInterval(() => {
         generateEnemySprite();
-      }, 5000);
+        generateItem();
+      }, levelObj.difficulty.speedOfEnemy);
       return () => clearInterval(interval);
     }
-  }, [dispatch, displayCharacter, enemyStartPos]);
+  }, [
+    dispatch,
+    displayCharacter,
+    enemyStartPos,
+    levelObj.difficulty.itemOdds,
+    levelObj.difficulty.oddsOfEnemy,
+    levelObj.difficulty.speedOfEnemy,
+  ]);
   if (displayCharacter === true) {
     return (
       <div className={classes.buffer}>

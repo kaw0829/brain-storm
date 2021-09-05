@@ -1,11 +1,11 @@
 .playWindow {
   display: flex;
-  background-color: midnightblue;
+  background-color: #06155c;
   height: 100%;
   flex-wrap: wrap-reverse;
 }
 .building {
-  background-image: url('brick-texture.bmp');
+  /* background-image: url('brick-texture.bmp'); */
   background-color: darkred;
   height: 85%;
   min-width: 500px;
@@ -27,6 +27,12 @@
   margin-top: 15%;
   height: 70%;
 }
-
+.rightContainer {
+  display: flex;
+  flex: 1 1;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
 /* window colors
 c4d1d8  9badb7  696a6a */

@@ -18,14 +18,14 @@ const initialState = usersAdapter.getInitialState({
 });
 
 export const updateHiScore = createAsyncThunk('userScore/updateHiScore', async (userScore) => {
-  console.log('userscore inside hi score  ', userScore);
-  let db = firebase.firestore();
-  console.log('inside updateHiScore');
-  const response = db.collection('userScore').doc();
-  await response.set(userScore);
-  let datawithid = db.collection('userScore').doc();
-  let d = await datawithid.get().where(userScore.userName);
-  console.log('d', d);
+  let db = firebase.database();
+  const response = await db.ref('userScores/' + userScore.id).set({
+    initials: userScore.initials,
+    hiScore: userScore.hiScore,
+    id: userScore.id,
+  });
+  console.log('response', response);
+  return userScore;
 });
 
 export const addUser = createAsyncThunk('userScores/addUser', async (user) => {
@@ -85,7 +85,16 @@ export const scoreBoardSlice = createSlice({
       state.status = 'failed';
       state.error = action.error.message;
     },
-    [updateHiScore.fulfilled]: usersAdapter.upsertOne,
+    [updateHiScore.rejected]: (state, action) => {
+      state.status = 'failed to update score';
+      state.error = action.error.message;
+    },
+    [updateHiScore.fulfilled]: (state, action) => {
+      state.status = 'update succeeded';
+      console.log('action.payload for update', action.payload);
+      usersAdapter.upsertOne(state, action.payload);
+    },
+    // [updateHiScore.fulfilled]: usersAdapter.upsertOne,
     [addUser.fulfilled]: usersAdapter.upsertOne,
   },
 });

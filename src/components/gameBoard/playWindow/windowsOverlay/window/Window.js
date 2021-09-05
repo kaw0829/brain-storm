@@ -1,115 +1,155 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Window.module.css';
-import window from '../../../../../resources/wdw.png';
-import char from '../../../../../resources/workerman-standing-fitted-animate.gif';
-import charWorking from '../../../../../resources/workerman-standing-fitted-animate-working.gif';
-import cloudy from '../../../../../resources/cloudy.gif';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  setWindowClicked,
-  setDisplayQuestion,
+  setHasCoffee,
   setOneWindowInArray,
-  setPlayerPosition,
   selectDisplayQuestion,
   selectEnemyPosition,
+  selectItemPosition,
+  selectHasCoffee,
+  setItemPosition,
+  selectCharacterHere,
 } from '../../../../../app/playerScoreSlice';
 import { selectWindowById, selectPlayerPosition } from '../../../../../app/playerScoreSlice';
-import { useEffect } from 'react';
 
-//TODO: add image as prop so different windows can be used
-let backGround = styles.dark;
-const Window = ({ id }) => {
+const CoffeeRender = React.memo(({ levelObj, pos }) => {
   const dispatch = useDispatch();
-  const questionStatus = useSelector(selectDisplayQuestion);
-  const currentPos = useSelector(selectPlayerPosition);
+  // const characterPos = useSelector((state) => selectIsCharacterHere(state, id));
+
+  if (pos) {
+    dispatch(setHasCoffee(true));
+    dispatch(setItemPosition(11));
+    const timeOut = () =>
+      setTimeout(() => {
+        dispatch(setHasCoffee(false));
+      }, 15000);
+    timeOut();
+  }
+  return <img src={levelObj.assets.items[0].coffee} alt='coffee' className={styles.coffeeImg} />;
+});
+
+const Window = React.memo(({ id, levelObj }) => {
+  const lightOn = styles.light;
+  const lightOff = `${styles.animated} ${styles.dark}`;
+  const coffeePos = useSelector(selectItemPosition);
+  const dispatch = useDispatch();
+  const pos = useSelector((state) => selectCharacterHere(state, id));
   const litup = useSelector((state) => selectWindowById(state, id));
-  const character = !questionStatus ? char : charWorking;
-  // instead of using selectWindowById, can select directly from state
-  // const trySelecting = useSelector((state) => state.playerScore.windowArray[id]);
+  // const [isLitUp, setIsLitUp] = useState(useSelector((state) => selectWindowById(state, id)));
+  const [backGround, setBackGround] = useState(lightOff);
+  const regCharacter = !useSelector(selectDisplayQuestion)
+    ? levelObj.assets.workerman.standing
+    : levelObj.assets.workerman.working;
 
-  const windowHandler = (e) => {
-    //player must move before question is displayed or character will not move to window square
-    if (currentPos === id && currentPos % 2 === 1) {
-      dispatch(setDisplayQuestion(true));
-      dispatch(setWindowClicked(id));
+  const coffeeCharacter = !useSelector(selectDisplayQuestion)
+    ? levelObj.assets.workerman.standingCoffee
+    : levelObj.assets.workerman.workingCoffee;
+
+  const character = useSelector(selectHasCoffee) ? coffeeCharacter : regCharacter;
+
+  useEffect(() => {
+    const ignoreList = [11, 23, 35, 47, 58];
+
+    if (id % 2 === 1) {
+      if (!ignoreList.includes(id)) {
+        if (litup) {
+          setBackGround(lightOn);
+          // backGround = styles.light;
+          const timer = () =>
+            setTimeout(() => {
+              console.log('time', id);
+              let payload = {
+                windowId: id,
+                bool: false,
+              };
+              dispatch(setOneWindowInArray(payload));
+              // setIsLitUp(false);
+            }, levelObj.difficulty.lightTime);
+          timer();
+          return clearTimeout(timer);
+        } else {
+          setBackGround(lightOn);
+          setBackGround(lightOff);
+          // backGround = styles.light;
+          // backGround = `${styles.animated} ${styles.dark}`;
+        }
+      }
     }
-    // dispatch(setPlayerPosition(id));
-  };
-  // const emptyWindowHandler = (e) => {
-  //   dispatch(setWindowClicked(id));
-  //   dispatch(setPlayerPosition(id));
-  // };
+  }, [dispatch, id, levelObj.difficulty.lightTime, lightOff, lightOn, backGround, litup]);
 
-  const charcterImg = (
-    <img className={styles.character} src={character} onClick={windowHandler} alt='Mr. Workerman' />
+  // console.log(
+  //   'here?',
+  //   useSelector((state) => selectCharacterHere(state, id))
+  // );
+
+  // const pos = position === id ? true : false;
+  // const pos = useSelector(selectIsCharacterHere(id));
+
+  const enemyImg = (
+    <img className={styles.character} src={levelObj.assets.cloudy} alt='mr. Cloudy' />
   );
-  const enemyImg = <img className={styles.character} src={cloudy} alt='mr. Cloudy' />;
   const windowDisplay = (
     <React.Fragment>
       <div className={`${styles.windowBackDrop} ${backGround}`}></div>
       <img
-        src={window}
+        src={levelObj.assets.windows}
         className={styles.windowImg}
         // onClick={windowHandler}
         alt='pixelated window'
-        id={id}
       />
+      {coffeePos === id ? <CoffeeRender id={id} levelObj={levelObj} pos={pos} /> : null}
     </React.Fragment>
   );
+  // const charId = useSelector(selectPlayerPosition);
+  const enemyArray = useSelector(selectEnemyPosition);
+  const charStyle = enemyArray.includes(useSelector(selectPlayerPosition))
+    ? `${styles.character} ${styles.spin}`
+    : styles.character;
 
   let windowRender = id % 2 === 1 ? windowDisplay : <div className={styles.character}></div>;
-  const characterRender = useSelector(selectPlayerPosition) === id ? charcterImg : null;
-  const enemyArray = useSelector(selectEnemyPosition);
+  const charcterImg = <img className={charStyle} src={character} alt='Mr. Workerman' />;
+  const characterRender = pos ? charcterImg : null;
+
   const enemyRender = enemyArray.includes(id) ? enemyImg : null;
 
-  useEffect(() => {
-    const downHandler = (e) => {
-      if (e.key === 's') {
-        if (id + 12 <= 58) {
-          dispatch(setPlayerPosition(id + 12));
-        }
-      } else if (e.key === 'w') {
-        if (id - 12 >= 0) {
-          dispatch(setPlayerPosition(id - 12));
-        }
-      } else if (e.key === 'a') {
-        const endRows = [11, 23, 35, 47];
-        if (!endRows.includes(id - 1) && id - 1 >= 0) {
-          dispatch(setPlayerPosition(id - 1));
-        }
-      } else if (e.key === 'd') {
-        const endRows = [11, 23, 35, 47];
-        if (!endRows.includes(id + 1) && id + 1 <= 58) {
-          dispatch(setPlayerPosition(id + 1));
-        }
-      } else if (e.key === ' ') {
-        windowHandler();
-      }
-    };
+  // useEffect(() => {
+  //   const downHandler = (e) => {
+  //     if (e.key === 's') {
+  //       if (id + 12 <= 58) {
+  //         dispatch(setPlayerPosition(id + 12));
+  //       }
+  //     } else if (e.key === 'w') {
+  //       if (id - 12 >= 0) {
+  //         dispatch(setPlayerPosition(id - 12));
+  //       }
+  //     } else if (e.key === 'a') {
+  //       const endRows = [11, 23, 35, 47];
+  //       if (!endRows.includes(id - 1) && id - 1 >= 0) {
+  //         dispatch(setPlayerPosition(id - 1));
+  //       }
+  //     } else if (e.key === 'd') {
+  //       const endRows = [11, 23, 35, 47];
+  //       if (!endRows.includes(id + 1) && id + 1 <= 58) {
+  //         dispatch(setPlayerPosition(id + 1));
+  //       }
+  //     } else if (e.key === ' ') {
+  //       if (pos && id % 2 === 1) {
+  //         dispatch(setDisplayQuestion(true));
+  //         dispatch(setWindowClicked(id));
+  //       }
+  //     }
+  //   };
 
-    if (characterRender) {
-      document.body.addEventListener('keydown', downHandler);
-    }
-    return () => document.body.removeEventListener('keydown', downHandler);
-  }, [characterRender, dispatch, id]);
+  //   if (pos) {
+  //     document.body.addEventListener('keydown', downHandler);
+  //   }
+  //   return () => document.body.removeEventListener('keydown', downHandler);
+  // }, [dispatch, id, pos]);
 
   // if (characterRender) {
   //   document.addEventListener('keydown', downHandler);
   // }
-
-  if (litup) {
-    backGround = styles.light;
-    setTimeout(() => {
-      let payload = {
-        windowId: id,
-        bool: false,
-      };
-      dispatch(setOneWindowInArray(payload));
-    }, 30000);
-  } else {
-    backGround = styles.light;
-    backGround = `${styles.animated} ${styles.dark}`;
-  }
 
   return (
     <div className={styles.container}>
@@ -118,6 +158,6 @@ const Window = ({ id }) => {
       {enemyRender}
     </div>
   );
-};
+});
 
 export default Window;

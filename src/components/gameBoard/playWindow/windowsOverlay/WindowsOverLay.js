@@ -4,80 +4,81 @@ import { selectWindowArray } from '../../../../app/playerScoreSlice';
 import styles from './WindowsOverLay.module.css';
 import Window from './window/Window';
 
-const WindowsOverLay = () => {
-
-
+const WindowsOverLay = ({ levelObj }) => {
+  const background = levelObj.assets.ledge
+  
   return (
     <div className={styles.transparency}>
       {/* {generateRows(5, 5)} */}
       <div className={styles.windowRow}>
-        <Window id={0} />
-        <Window id={1} />
-        <Window id={2} />
-        <Window id={3} />
-        <Window id={4} />
-        <Window id={5} />
-        <Window id={6} />
-        <Window id={7} />
-        <Window id={8} />
-        <Window id={9} />
-        <Window id={10} />
+        <Window id={0} levelObj={levelObj} />
+        <Window id={1} levelObj={levelObj} />
+        <Window id={2} levelObj={levelObj} />
+        <Window id={3} levelObj={levelObj} />
+        <Window id={4} levelObj={levelObj} />
+        <Window id={5} levelObj={levelObj} />
+        <Window id={6} levelObj={levelObj} />
+        <Window id={7} levelObj={levelObj} />
+        <Window id={8} levelObj={levelObj} />
+        <Window id={9} levelObj={levelObj} />
+        <Window id={10} levelObj={levelObj} />
       </div>
-      <div className={styles.ledge}></div>
+      {/*{{background-image: url({background})}}  */}
+      <div className={styles.ledge} style={{backgroundImage: `url(${background})`}} ></div>
       <div className={styles.windowRow}>
-        <Window id={12} />
-        <Window id={13} />
-        <Window id={14} />
-        <Window id={15} />
-        <Window id={16} />
-        <Window id={17} />
-        <Window id={18} />
-        <Window id={19} />
-        <Window id={20} />
-        <Window id={21} />
-        <Window id={22} />
+        <Window id={12} levelObj={levelObj} />
+        <Window id={13} levelObj={levelObj} />
+        <Window id={14} levelObj={levelObj} />
+        <Window id={15} levelObj={levelObj} />
+        <Window id={16} levelObj={levelObj} />
+        <Window id={17} levelObj={levelObj} />
+        <Window id={18} levelObj={levelObj} />
+        <Window id={19} levelObj={levelObj} />
+        <Window id={20} levelObj={levelObj} />
+        <Window id={21} levelObj={levelObj} />
+        <Window id={22} levelObj={levelObj} />
       </div>
-      <div className={styles.ledge}></div>
+      <div className={styles.ledge} style={{backgroundImage: `url(${background})`}} ></div>
       <div className={styles.windowRow}>
-        <Window id={24} />
-        <Window id={25} />
-        <Window id={26} />
-        <Window id={27} />
-        <Window id={28} />
-        <Window id={29} />
-        <Window id={30} />
-        <Window id={31} />
-        <Window id={32} />
-        <Window id={33} />
-        <Window id={34} />
+        <Window id={24} levelObj={levelObj} />
+        <Window id={25} levelObj={levelObj} />
+        <Window id={26} levelObj={levelObj} />
+        <Window id={27} levelObj={levelObj} />
+        <Window id={28} levelObj={levelObj} />
+        <Window id={29} levelObj={levelObj} />
+        <Window id={30} levelObj={levelObj} />
+        <Window id={31} levelObj={levelObj} />
+        <Window id={32} levelObj={levelObj} />
+        <Window id={33} levelObj={levelObj} />
+        <Window id={34} levelObj={levelObj} />
       </div>
-      <div className={styles.ledge}></div>
+      <div className={styles.ledge} style={{backgroundImage: `url(${background})`}} ></div>
       <div className={styles.windowRow}>
-        <Window id={36} />
-        <Window id={37} />
-        <Window id={38} />
-        <Window id={39} />
-        <Window id={40} />
-        <Window id={41} />
-        <Window id={42} />
-        <Window id={43} />
-        <Window id={44} />
-        <Window id={45} />
-        <Window id={46} />
+        <Window id={36} levelObj={levelObj} />
+        <Window id={37} levelObj={levelObj} />
+        <Window id={38} levelObj={levelObj} />
+        <Window id={39} levelObj={levelObj} />
+        <Window id={40} levelObj={levelObj} />
+        <Window id={41} levelObj={levelObj} />
+        <Window id={42} levelObj={levelObj} />
+        <Window id={43} levelObj={levelObj} />
+        <Window id={44} levelObj={levelObj} />
+        <Window id={45} levelObj={levelObj} />
+        <Window id={46} levelObj={levelObj} />
       </div>
-      <div className={styles.ledge}></div>
+      <div className={styles.ledge} style={{backgroundImage: `url(${background})`}} ></div>
       <div className={styles.windowRow}>
-        <Window id={48} />
-        <Window id={49} />
-        <Window id={50} />
-        <Window id={51} />
-        <Window id={52} />
-        <Window id={53} />
-        <Window id={54} />
-        <Window id={55} />
-        <Window id={56} />
-        <Window id={57} />
-        <Window id={58} />
+        <Window id={48} levelObj={levelObj} />
+        <Window id={49} levelObj={levelObj} />
+        <Window id={50} levelObj={levelObj} />
+        <Window id={51} levelObj={levelObj} />
+        <Window id={52} levelObj={levelObj} />
+        <Window id={53} levelObj={levelObj} />
+        <Window id={54} levelObj={levelObj} />
+        <Window id={55} levelObj={levelObj} />
+        <Window id={56} levelObj={levelObj} />
+        <Window id={57} levelObj={levelObj} />
+        <Window id={58} levelObj={levelObj} />
       </div>
     </div>
   );
