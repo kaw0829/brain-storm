@@ -19,9 +19,6 @@ const Timer = () => {
     // Clear timeout if the component is unmounted
     return () => clearTimeout(timer);
   }, [dispatch, timeLeft]);
-  if (timeLeft <= 0) {
-    dispatch(setGameOver(true));
-  }
   return <div className={styles.timer}>{timeLeft}</div>;
 };
 export default Timer;

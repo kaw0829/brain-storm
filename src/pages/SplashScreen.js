@@ -59,7 +59,7 @@ const EnterUserName = ({ handlePlay, userScores }) => {
     <React.Fragment>
       <div className={classes.backdrop}></div>
       <Modal>
-        <div className={`nes-field`}>
+        <div className={`nes-field ${classes.field}`}>
           <label htmlFor='name_field'>ENTER INITIALS:</label>
           <input
             autoFocus

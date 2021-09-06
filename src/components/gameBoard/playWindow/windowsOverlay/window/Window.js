@@ -10,6 +10,8 @@ import {
   selectHasCoffee,
   setItemPosition,
   selectCharacterHere,
+  selectRainyPos,
+  setPlayerPosition,
 } from '../../../../../app/playerScoreSlice';
 import { selectWindowById, selectPlayerPosition } from '../../../../../app/playerScoreSlice';
 
@@ -89,6 +91,8 @@ const Window = React.memo(({ id, levelObj }) => {
   const enemyImg = (
     <img className={styles.character} src={levelObj.assets.cloudy} alt='mr. Cloudy' />
   );
+  const rainyImg = <img className={styles.character} src={levelObj.assets.rainy} alt='mr. Rainy' />;
+
   const windowDisplay = (
     <React.Fragment>
       <div className={`${styles.windowBackDrop} ${backGround}`}></div>
@@ -103,6 +107,7 @@ const Window = React.memo(({ id, levelObj }) => {
   );
   // const charId = useSelector(selectPlayerPosition);
   const enemyArray = useSelector(selectEnemyPosition);
+  const rainyPos = useSelector(selectRainyPos);
   const charStyle = enemyArray.includes(useSelector(selectPlayerPosition))
     ? `${styles.character} ${styles.spin}`
     : styles.character;
@@ -112,50 +117,27 @@ const Window = React.memo(({ id, levelObj }) => {
   const characterRender = pos ? charcterImg : null;
 
   const enemyRender = enemyArray.includes(id) ? enemyImg : null;
+  const rainyRender = rainyPos === id ? rainyImg : null;
 
   // useEffect(() => {
-  //   const downHandler = (e) => {
-  //     if (e.key === 's') {
-  //       if (id + 12 <= 58) {
+  //     const timer = () => {
+  //       console.log(rainyPos, id)
+  //       if (rainyPos === id) {
+  //       setTimeout(() => {
   //         dispatch(setPlayerPosition(id + 12));
-  //       }
-  //     } else if (e.key === 'w') {
-  //       if (id - 12 >= 0) {
-  //         dispatch(setPlayerPosition(id - 12));
-  //       }
-  //     } else if (e.key === 'a') {
-  //       const endRows = [11, 23, 35, 47];
-  //       if (!endRows.includes(id - 1) && id - 1 >= 0) {
-  //         dispatch(setPlayerPosition(id - 1));
-  //       }
-  //     } else if (e.key === 'd') {
-  //       const endRows = [11, 23, 35, 47];
-  //       if (!endRows.includes(id + 1) && id + 1 <= 58) {
-  //         dispatch(setPlayerPosition(id + 1));
-  //       }
-  //     } else if (e.key === ' ') {
-  //       if (pos && id % 2 === 1) {
-  //         dispatch(setDisplayQuestion(true));
-  //         dispatch(setWindowClicked(id));
-  //       }
-  //     }
-  //   };
+  //       }, 790);
+  //     };
 
-  //   if (pos) {
-  //     document.body.addEventListener('keydown', downHandler);
   //   }
-  //   return () => document.body.removeEventListener('keydown', downHandler);
-  // }, [dispatch, id, pos]);
-
-  // if (characterRender) {
-  //   document.addEventListener('keydown', downHandler);
-  // }
+  //    return () => clearTimeout(timer);
+  // }, [dispatch, rainyPos, id]);
 
   return (
     <div className={styles.container}>
       {windowRender}
       {characterRender}
       {enemyRender}
+      {rainyRender}
     </div>
   );
 });

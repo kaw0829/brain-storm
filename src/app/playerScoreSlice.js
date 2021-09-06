@@ -25,10 +25,14 @@ export const playerScoreSlice = createSlice({
     hasCoffee: false,
     itemPosition: 11,
     playerLevel: 0,
-    timeLeft: 20,
+    timeLeft: 120,
     gameOver: false,
+    rainyPosition: null,
   },
   reducers: {
+    setRainyPos: (state, action) => {
+      state.rainyPosition = action.payload;
+    },
     setGameOver: (state, action) => {
       if (state.playerHiScore < state.currentScore) {
         state.playerHiScore = state.currentScore;
@@ -51,8 +55,9 @@ export const playerScoreSlice = createSlice({
       state.hasCoffee = false;
       state.itemPosition = 11;
       state.playerLevel = 0;
-      state.timeLeft = 20;
+      state.timeLeft = 120;
       state.gameOver = false;
+      state.rainyPosition = null;
     },
     setPlayerLevel: (state, action) => {
       const playerLevel = action.payload;
@@ -86,13 +91,15 @@ export const playerScoreSlice = createSlice({
       const pos = action.payload;
       if (state.displayQuestion === false) {
         if (!state.enemyPosition.includes(state.playerPosition)) {
-          state.playerPosition = pos;
+          if (state.rainyPosition !== state.playerPosition) {
+            state.playerPosition = pos;
+          }
         }
       }
     },
     setEnemyPosition: (state, action) => {
       let pos = action.payload;
-      const endRows = [11, 23, 35, 47, 58];
+      // const endRows = [11, 23, 35, 47, 58];
       if (pos > 58) {
         pos = ((pos % 10) * 2 + 2) % 10;
 
@@ -148,6 +155,7 @@ export const playerScoreSlice = createSlice({
 
       if (!state.windowArray.includes(false)) {
         state.playerLevel = state.playerLevel + 1;
+        state.timeLeft = state.timeLeft + 60;
         state.currentScore = Math.floor(
           state.currentScore + ((200 + state.timeLeft) / 200) * state.timeLeft * state.playerLevel
         );
@@ -239,6 +247,7 @@ export const playerScoreSlice = createSlice({
 });
 
 export const {
+  setRainyPos,
   setHiScore,
   setTimeLeft,
   setPlayerLevel,
@@ -257,6 +266,7 @@ export const {
 } = playerScoreSlice.actions;
 
 // selctors
+export const selectRainyPos = (state) => state.playerScore.rainyPosition;
 export const selectHighestScore = (state) => state.playerScore.playerHiScore;
 export const selectGameOver = (state) => state.playerScore.gameOver;
 export const selectPlayerLevel = (state) => state.playerScore.playerLevel;

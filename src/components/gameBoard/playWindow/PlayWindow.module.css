@@ -9,7 +9,7 @@
   background-color: darkred;
   height: 85%;
   min-width: 500px;
-  max-width: 60%;
+  /* max-width: 60%; */
   border: #9badb7 4px solid;
   flex: 3 1;
 }
@@ -33,6 +33,38 @@
   flex-direction: column;
   align-items: center;
   height: 100%;
+}
+.rainyContainer {
+  display: flex;
+  height: 14%;
+  min-width: 500px;
+  /* max-width: 60%; */
+  /* flex: 3 1; */
+}
+.buildingContainer {
+  height: 100%;
+  min-width: 500px;
+  max-width: 60%;
+  flex-wrap: wrap-reverse;
+  flex: 3 1;
+  display: flex;
+  flex-direction: column;
+}
+.cloud {
+  margin-top: 1%;
+  height: 120%;
+  position: absolute;
+}
+.cloudContainer {
+  height: 100%;
+  width: 9%;
+  position: relative;
+}
+.lightning {
+  margin-top: 50%;
+  margin-left: 35%;
+  height: 40%;
+  position: absolute;
 }
 /* window colors
 c4d1d8  9badb7  696a6a */
