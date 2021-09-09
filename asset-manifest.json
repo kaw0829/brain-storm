@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/kaw0829/brain-storm/static/css/main.884c7aad.chunk.css",
+    "main.js": "/kaw0829/brain-storm/static/js/main.749da9cd.chunk.js",
+    "main.js.map": "/kaw0829/brain-storm/static/js/main.749da9cd.chunk.js.map",
+    "runtime-main.js": "/kaw0829/brain-storm/static/js/runtime-main.395ad5be.js",
+    "runtime-main.js.map": "/kaw0829/brain-storm/static/js/runtime-main.395ad5be.js.map",
+    "static/css/2.3c2d599a.chunk.css": "/kaw0829/brain-storm/static/css/2.3c2d599a.chunk.css",
+    "static/js/2.677ba246.chunk.js": "/kaw0829/brain-storm/static/js/2.677ba246.chunk.js",
+    "static/js/2.677ba246.chunk.js.map": "/kaw0829/brain-storm/static/js/2.677ba246.chunk.js.map",
+    "index.html": "/kaw0829/brain-storm/index.html",
+    "static/css/2.3c2d599a.chunk.css.map": "/kaw0829/brain-storm/static/css/2.3c2d599a.chunk.css.map",
+    "static/css/main.884c7aad.chunk.css.map": "/kaw0829/brain-storm/static/css/main.884c7aad.chunk.css.map",
+    "static/js/2.677ba246.chunk.js.LICENSE.txt": "/kaw0829/brain-storm/static/js/2.677ba246.chunk.js.LICENSE.txt",
+    "static/media/robo-sprite2.155788d9.svg": "/kaw0829/brain-storm/static/media/robo-sprite2.155788d9.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.395ad5be.js",
+    "static/css/2.3c2d599a.chunk.css",
+    "static/js/2.677ba246.chunk.js",
+    "static/css/main.884c7aad.chunk.css",
+    "static/js/main.749da9cd.chunk.js"
+  ]
+}
