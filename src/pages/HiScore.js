@@ -43,7 +43,7 @@ const HiScore = () => {
       <div className={classes.container}>
         <h1> HI-SCORE </h1>
         <div>{content}</div>
-        <Link to='/'><button type='button' className='nes-btn is-error'>
+        <Link to='/brain-storm'><button type='button' className='nes-btn is-error'>
           GO BACK
         </button>
         </Link>

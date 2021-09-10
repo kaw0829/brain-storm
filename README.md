@@ -6,6 +6,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 The goal of this project was primarily to get more familiar with the new Redux Toolkit. There are of course much better ways to implement a game but this was a learning project. Brain-Storm took approximately 40 to 60 hours and is orgainized in a "DUCKS" pattern as recommended by the Redux documentation as of 2021.
 
+[PLAY DEMO](https://kaw0829.github.io/brain-storm/)
+
 ## TODO
 
 Add multiplayer support and refactor the store slices. Much of the game information is stored in redux and could be moved into firebase to allow for multiplayer functionality.

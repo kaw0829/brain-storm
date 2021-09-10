@@ -77,7 +77,7 @@ const Instructions = () => {
           >
             {leftArrow}
           </button>
-          <Link to='/'>
+          <Link to='/brain-storm'>
             <button type='button' className={`nes-btn is-error ${classes.button}`}>
               Go Back
             </button>
