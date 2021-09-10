@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/brain-storm/static/css/main.884c7aad.chunk.css",
-    "main.js": "/brain-storm/static/js/main.ee71bdfb.chunk.js",
-    "main.js.map": "/brain-storm/static/js/main.ee71bdfb.chunk.js.map",
+    "main.js": "/brain-storm/static/js/main.cd98577e.chunk.js",
+    "main.js.map": "/brain-storm/static/js/main.cd98577e.chunk.js.map",
     "runtime-main.js": "/brain-storm/static/js/runtime-main.f06c15f4.js",
     "runtime-main.js.map": "/brain-storm/static/js/runtime-main.f06c15f4.js.map",
     "static/css/2.3c2d599a.chunk.css": "/brain-storm/static/css/2.3c2d599a.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.3c2d599a.chunk.css",
     "static/js/2.b6a24742.chunk.js",
     "static/css/main.884c7aad.chunk.css",
-    "static/js/main.ee71bdfb.chunk.js"
+    "static/js/main.cd98577e.chunk.js"
   ]
 }
