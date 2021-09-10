@@ -9,7 +9,7 @@ const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/' exact={true}>
+        <Route path='/brain-storm' exact={true}>
           <SplashScreen />
         </Route>
         <Route path='/play' exact={true}>
