@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import {
-  selectPlayerScore,
-  selectPlayerCurrentScore,
-  selectPlayerHiScore,
-} from '../../../../app/playerScoreSlice';
+import { selectPlayerCurrentScore, selectPlayerHiScore } from '../../../../app/gameSlice';
 import classes from './ScoreDisplay.module.css';
 
+/**
+ * ScoreDisplay retrieves scores from redux store and displays them
+ *
+ * @return {JSX}
+ */
 const ScoreDisplay = () => {
   const currentScore = useSelector(selectPlayerCurrentScore);
   const hiScore = useSelector(selectPlayerHiScore);

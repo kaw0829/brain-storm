@@ -8,10 +8,16 @@ import {
   selectAllUserScores,
   fetchScores,
   selectHighestScore,
-} from '../components/scoreBoard/scoreBoardSlice';
+} from '../features/scoreBoard/scoreBoardSlice';
 import { nanoid } from '@reduxjs/toolkit';
-import { setInitalVals } from '../app/playerScoreSlice';
+import { setInitalVals } from '../app/gameSlice';
 
+/**
+ *NavLinks is displayed on initial load of the game.  Presents the player with a choice of three buttons.
+ *
+ * @param {EventHandler} { handlePlay }  - handles displaying NavLinks or EnterUserName
+ * @return  {*}  returns div containing three butttons containing links to different pages.
+ */
 const NavLinks = ({ handlePlay }) => {
   return (
     <div className={classes.col}>
@@ -35,6 +41,15 @@ const NavLinks = ({ handlePlay }) => {
     </div>
   );
 };
+
+/**
+ *  EnterUserName is a modal that asks player to enter three letter initials and checks to see if that player
+ * is in the database,  if not it creates a new entry.
+ *
+ * @param {EventHandler} { handlePlay }  - handles displaying NavLinks or EnterUserName
+ * @param {Array}         { userScores } - an array of objects containing all user scores retrieved from server
+ * @return {JSX}    contains an input field for initials and two buttons START and GO BACK
+ */
 const EnterUserName = ({ handlePlay, userScores }) => {
   const [user, setUser] = useState('');
   const dispatch = useDispatch();
@@ -44,16 +59,14 @@ const EnterUserName = ({ handlePlay, userScores }) => {
   };
   const handleStart = () => {
     let currentUser = userScores.find((player) => player.initials === user);
-    
+
     currentUser = currentUser ? currentUser : { initials: user, hiScore: 0, id: nanoid() };
     console.log('current user', currentUser);
     currentUser = { ...currentUser, allTimeHiScore: allTimeHiScore };
-    //const postsForUser = useSelector((state) => selectPostsByUser(state, userId))
     dispatch(setInitalVals(currentUser));
 
-    //TODO: 
+    //TODO:
     // set up gameplay slice? for those props, would allow for multiplayer by adding real time gamedata
-    
   };
   return (
     <React.Fragment>
@@ -91,6 +104,12 @@ const EnterUserName = ({ handlePlay, userScores }) => {
     </React.Fragment>
   );
 };
+
+/**
+ *  SplashScreen component loads on first startup.  useState controls wether to display NavLinks or EnterUserName
+ *
+ * @return {JSX}
+ */
 const SplashScreen = () => {
   const dispatch = useDispatch();
   const [showLinks, setShowLinks] = useState(true);

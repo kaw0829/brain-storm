@@ -1,8 +1,14 @@
 import styles from './Timer.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { setGameOver, selectTimeLeft, setTimeLeft } from '../../../../app/playerScoreSlice';
 
+import { setGameOver, selectTimeLeft, setTimeLeft } from '../../../../app/gameSlice';
+
+/**
+ * Timer keeps a running countdown of time left
+ *
+ * @return {JSX} displays remaining time
+ */
 const Timer = () => {
   const dispatch = useDispatch();
   const timeLeft = useSelector(selectTimeLeft);

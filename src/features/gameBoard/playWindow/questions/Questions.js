@@ -10,7 +10,7 @@ import {
   selectDisplayQuestion,
   setMultiWindowInArray,
   setNineWindowsInArray,
-} from '../../../../app/playerScoreSlice';
+} from '../../../../app/gameSlice';
 
 //generates an array of questions and answers, index value will match question to answer.
 let questionsArray = questionArray.questions;

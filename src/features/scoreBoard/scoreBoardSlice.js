@@ -3,7 +3,6 @@ import {
   createSlice,
   createAsyncThunk,
   createEntityAdapter,
-  nanoid,
   createSelector,
 } from '@reduxjs/toolkit';
 
@@ -26,17 +25,6 @@ export const updateHiScore = createAsyncThunk('userScore/updateHiScore', async (
   });
   console.log('response', response);
   return userScore;
-});
-
-export const addUser = createAsyncThunk('userScores/addUser', async (user) => {
-  firebase
-    .database()
-    .ref('userScores/' + user)
-    .set({
-      initials: user,
-      hiScore: 0,
-      id: nanoid(),
-    });
 });
 
 export const fetchScores = createAsyncThunk('userScores/fetchScores', async () => {
@@ -94,8 +82,6 @@ export const scoreBoardSlice = createSlice({
       console.log('action.payload for update', action.payload);
       usersAdapter.upsertOne(state, action.payload);
     },
-    // [updateHiScore.fulfilled]: usersAdapter.upsertOne,
-    [addUser.fulfilled]: usersAdapter.upsertOne,
   },
 });
 

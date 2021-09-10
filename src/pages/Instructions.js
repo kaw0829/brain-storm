@@ -6,6 +6,12 @@ import { Link } from 'react-router-dom';
 
 //TODO: add conditiional rendering to slowly add bubbles and have mr robo move his mouth.
 // useEffect and setInterval?
+
+/**
+ * Instructions display the gameplay instructions
+ * useState page controls which page of instructions to display.
+ * @return {JSX} 
+ */
 const Instructions = () => {
   const [page, setPage] = useState(false);
   const leftArrow = '<';
@@ -18,11 +24,15 @@ const Instructions = () => {
   ];
   const controls = [
     'Use the W, S, A, D, keys to move Mr Workman to where power is needed',
-    'Click on the apartment window to bring up a question',
-    'Answer the question corrrectly to restore power using the number keys',
+    'use space bar to select a window and bring up a question',
+    'Answer the question corrrectly using the mouse to restore power',
     'Proceed quickly before the apartment losses power again',
   ];
 
+  /**
+   * arrowHandler handles clicking on arrows to display next page.
+   *
+   */
   const arrowHandler = () => {
     page ? setDisplayText(instructions) : setDisplayText(controls);
     setPage(!page);

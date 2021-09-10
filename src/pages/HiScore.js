@@ -2,19 +2,29 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import classes from './HiScore.module.css';
-import {selectAllUserScores} from '../components/scoreBoard/scoreBoardSlice';
+import {selectAllUserScores} from '../features/scoreBoard/scoreBoardSlice';
 
+
+/**
+ * ScoreExcerpt takes an individual record and displays it in correct format
+ *
+ * @param {Object} { userScore } - each individual record containing params hiScore and initals
+ * @return {JSX} 
+ */
 const ScoreExcerpt = ({ userScore }) => {
-  console.log('userscore', userScore);
   return <div className={classes.score}>{`${userScore.initials} SCORE: ${userScore.hiScore}`}</div>;
 };
+
+
+/**
+ * HiScore  retrieves all userScores and displays them from hi to low.  Contains error handling for request.
+ *
+ * @return {JSX}  returns a map of ScoreExcerpts for each record.
+ */
 const HiScore = () => {
   const userScores = useSelector(selectAllUserScores);
-  console.log('userscores in hiscore', userScores);
   const userScoreStatus = useSelector((state) => state.scoreBoard.status);
-  console.log(userScoreStatus, 'status');
   const error = useSelector((state) => state.scoreBoard.error);
-  console.log('error in hiscore', error);
 
   let content;
 

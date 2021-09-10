@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import classes from './Buffer.module.css';
-import {
-  setItemPosition,
-  setEnemyPosition,
-  setAdvanceEnemies,
-} from '../../../../app/playerScoreSlice';
-import { div } from 'prelude-ls';
 
+import classes from './Buffer.module.css';
+import { setItemPosition, setEnemyPosition, setAdvanceEnemies } from '../../../../app/gameSlice';
+
+/**
+ *Buffer is a space on either side of the building component that can be used to generate enemy units.
+ *
+ * @param {*} { displayCharacter, levelObj }  displayCharacter is bool and decides wether enemy cloudy
+ * should be generated and randomly generates the enemy in differnt positions.
+ * levelObj - is the game assets in an Object
+ * @return {JSX}
+ */
 const Buffer = ({ displayCharacter, levelObj }) => {
   const cloudCharacter = (
     <img src={levelObj.assets.cloudy} className={classes.cloudy} alt='cloudy' />

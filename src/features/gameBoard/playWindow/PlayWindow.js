@@ -1,10 +1,11 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import classes from './PlayWindow.module.css';
 import WindowsOverLay from './windowsOverlay/WindowsOverLay';
 import Questions from './questions/Questions';
-import { useEffect, useState } from 'react';
 import levels from '../../../utilites/levels';
 import Buffer from './buffer/Buffer';
-import { useDispatch, useSelector } from 'react-redux';
 import {
   selectPlayerLevel,
   selectPlayerPosition,
@@ -13,10 +14,16 @@ import {
   setWindowClicked,
   selectRainyPos,
   setRainyPos,
-} from '../../../app/playerScoreSlice';
+} from '../../../app/gameSlice';
 import Timer from './timer/Timer';
-import { div } from 'prelude-ls';
 
+/**
+ * Rainy  generates a lightning cloud moving from left to right on gamescreen.
+ * The component also has a chance to generate the enemy Rainy who moves from straight down.
+ *
+ * @param {gif} { lightning, cloud }  animated gifs
+ * @return {JSX}
+ */
 const Rainy = ({ lightning, cloud }) => {
   const dispatch = useDispatch();
   const cloudi = <img src={cloud} className={classes.cloud} alt='cloudy' />;
@@ -84,6 +91,13 @@ const Rainy = ({ lightning, cloud }) => {
   );
 };
 
+/**
+ * PlayWindow contains the eventhandlers for the keyboard controls, listens for w a s d and space
+ *  the level object is retrieved from utilites,
+ *   it is an array of objects that contain all the level assets and difficulty settings
+ * @return {JSX} returns empty buffers on the left and right of the building, the building {windowsOverlay}component,
+ *  timer and the question area.
+ */
 const PlayWindow = () => {
   const dispatch = useDispatch();
   const id = useSelector(selectPlayerPosition);

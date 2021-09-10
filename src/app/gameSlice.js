@@ -1,5 +1,6 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 
+// intial window array
 let windows = Array(58).fill(false);
 windows = windows.map((window, index) => (index % 2 === 1 ? window : true));
 windows[11] = true;
@@ -9,8 +10,8 @@ windows[47] = true;
 windows[58] = true;
 
 // store slice for current players game info should update to firebase and upsert to scoreBoardSlice at gameOver
-export const playerScoreSlice = createSlice({
-  name: 'playerScore',
+export const gameSlice = createSlice({
+  name: 'game',
   initialState: {
     initials: 'AAA',
     playerHiScore: 0,
@@ -263,46 +264,36 @@ export const {
   setPlayerPosition,
   setAdvanceEnemies,
   setGameOver,
-} = playerScoreSlice.actions;
+} = gameSlice.actions;
 
 // selctors
-export const selectRainyPos = (state) => state.playerScore.rainyPosition;
-export const selectHighestScore = (state) => state.playerScore.playerHiScore;
-export const selectGameOver = (state) => state.playerScore.gameOver;
-export const selectPlayerLevel = (state) => state.playerScore.playerLevel;
-export const selectTimeLeft = (state) => state.playerScore.timeLeft;
-export const selectPlayerScore = (state) => state.playerScore;
-export const selectItemPosition = (state) => state.playerScore.itemPosition;
-export const selectWindowClicked = (state) => state.playerScore.windowClicked;
-export const selectPlayerPosition = (state) => state.playerScore.playerPosition;
-export const selectEnemyPosition = (state) => state.playerScore.enemyPosition;
-export const selectHasCoffee = (state) => state.playerScore.hasCoffee;
-export const selectPlayerHiScore = (state) => state.playerScore.playerHiScore;
-export const selectPlayerCurrentScore = (state) => state.playerScore.currentScore;
-export const selectDisplayQuestion = createSelector(
-  selectPlayerScore,
-  (playerScore) => playerScore.displayQuestion
-);
-export const selectWindowArray = createSelector(
-  selectPlayerScore,
-  (playerScore) => playerScore.windowArray
-);
-export const selectPlayer = createSelector(
-  selectPlayerScore,
-  (playerScore) => playerScore.playerPosition
-);
+export const selectRainyPos = (state) => state.game.rainyPosition;
+export const selectHighestScore = (state) => state.game.playerHiScore;
+export const selectGameOver = (state) => state.game.gameOver;
+export const selectPlayerLevel = (state) => state.game.playerLevel;
+export const selectTimeLeft = (state) => state.game.timeLeft;
+export const selectgame = (state) => state.game;
+export const selectItemPosition = (state) => state.game.itemPosition;
+export const selectWindowClicked = (state) => state.game.windowClicked;
+export const selectPlayerPosition = (state) => state.game.playerPosition;
+export const selectEnemyPosition = (state) => state.game.enemyPosition;
+export const selectHasCoffee = (state) => state.game.hasCoffee;
+export const selectPlayerHiScore = (state) => state.game.playerHiScore;
+export const selectPlayerCurrentScore = (state) => state.game.currentScore;
+export const selectDisplayQuestion = createSelector(selectgame, (game) => game.displayQuestion);
+export const selectWindowArray = createSelector(selectgame, (game) => game.windowArray);
+export const selectPlayer = createSelector(selectgame, (game) => game.playerPosition);
 
 export const selectWindowById = createSelector(
   [selectWindowArray, (state, windowId) => windowId],
   (windowArray, windowId) => windowArray[windowId]
 );
-export const selectIsCharacterHere = (state, windowId) =>
-  state.playerScore.playerPosition === windowId;
-// state.playerScore.playerPosition === windowId ? true : false;)
+export const selectIsCharacterHere = (state, windowId) => state.game.playerPosition === windowId;
+// state.game.playerPosition === windowId ? true : false;)
 
 export const selectCharacterHere = createSelector(
   [selectPlayer, (state, windowId) => windowId],
   (playerPosition, windowId) => (playerPosition === windowId ? true : false)
 );
 
-export default playerScoreSlice.reducer;
+export default gameSlice.reducer;

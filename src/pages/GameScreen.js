@@ -1,7 +1,7 @@
 import styles from './GameScreen.module.css';
-import GameHeader from '../components/gameBoard/gameHeader/GameHeader';
-import Footer from '../components/gameBoard/footer/Footer';
-import PlayWindow from '../components/gameBoard/playWindow/PlayWindow';
+import GameHeader from '../features/gameBoard/gameHeader/GameHeader';
+import Footer from '../features/gameBoard/footer/Footer';
+import PlayWindow from '../features/gameBoard/playWindow/PlayWindow';
 import Modal from '../ui/modal/Modal';
 import {
   selectPlayerLevel,
@@ -9,11 +9,17 @@ import {
   selectPlayerHiScore,
   setInitalVals,
   selectHighestScore,
-} from '../app/playerScoreSlice';
+} from '../app/gameSlice';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateHiScore } from '../components/scoreBoard/scoreBoardSlice';
+import { updateHiScore } from '../features/scoreBoard/scoreBoardSlice';
 import { useEffect, useState } from 'react';
 
+/**
+ *GameEnd updates hiScore for current player upon game end and displays the gameOver message
+ *
+ * @param {*} { message, player, playerId, hiScore } - the gameover message to display and user Info.
+ * @return {JSX}  - modal that displays message.
+ */
 const GameEnd = ({ message, player, playerId, hiScore }) => {
   const dispatch = useDispatch();
   const allTimeHiScore = useSelector((state) => selectHighestScore(state));
@@ -24,13 +30,7 @@ const GameEnd = ({ message, player, playerId, hiScore }) => {
       id: playerId,
       allTimeHiScore: allTimeHiScore,
     };
-    console.log('current user in gameend', currentUser);
-
     dispatch(setInitalVals(currentUser));
-
-    // const user = {player, playerId, hiScore}
-    // // const { initials, hiScore, id, allTimeHiScore } = action.payload;
-    // dispatch(setInitalVals(user));
   };
   return (
     <div className={styles.backdrop}>
@@ -45,14 +45,19 @@ const GameEnd = ({ message, player, playerId, hiScore }) => {
   );
 };
 
+/**
+ *GameScreen accesses much of the data from the game from Redux store including wether the game is over
+ *
+ * @return {JSX} displays the three major components that make up the gamescreen the header, the playWindow and footer
+ */
 const GameScreen = () => {
   const gameOver = useSelector(selectGameOver);
   const level = useSelector(selectPlayerLevel);
   const dispatch = useDispatch();
   const [message, setMessage] = useState('GAME OVER!!!');
   const hiScore = useSelector(selectPlayerHiScore);
-  const playerId = useSelector((state) => state.playerScore.id);
-  const player = useSelector((state) => state.playerScore.initials);
+  const playerId = useSelector((state) => state.game.id);
+  const player = useSelector((state) => state.game.initials);
   const content = gameOver ? (
     <GameEnd message={message} player={player} playerId={playerId} hiScore={hiScore} />
   ) : null;

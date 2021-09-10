@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectWindowArray } from '../../../../app/playerScoreSlice';
 import styles from './WindowsOverLay.module.css';
 import Window from './window/Window';
 
+
+
+/**
+ *  WindowOverlay is a component that holds all the window Components
+ *
+ * @param {Object} { levelObj }  contains level assets
+ * @return {JSX} 
+ */
 const WindowsOverLay = ({ levelObj }) => {
   const background = levelObj.assets.ledge
   
